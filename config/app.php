@@ -122,6 +122,9 @@ return [
 
     'log' => env('APP_LOG', 'single'),
 
+    //当 log 设为 daily 时，设置保存多少天的日志
+    'log_max_files' => env('APP_LOG_MAX_FILES', 30),
+
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*

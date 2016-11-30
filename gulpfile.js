@@ -18,8 +18,16 @@ elixir.config.sourcemaps = false;
 elixir((mix) => {
 
     mix.sass('app.scss')
-       .webpack('app.js');
+       .webpack('app.js')
+       .styles('home.css', 'public/css/home.css');
 
-    mix.version(['css/app.css', 'js/app.js']);
+    //有更新时，文件名不一样，确保浏览器不会使用缓存
+    mix.version(['css/app.css', 'js/app.js', 'css/home.css']);
+
+    //同步更新改变
+    mix.browserSync({
+    	proxy: 'voa.dev'
+    });
 
 });
+

@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'VOA慢速英语',
 
     /*
     |--------------------------------------------------------------------------
@@ -169,7 +169,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Laravel\Passport\PassportServiceProvider::class,
+        
         //
 
         /*

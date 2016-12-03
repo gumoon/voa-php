@@ -1,173 +1,98 @@
 @extends('layouts.app')
 
-@section('headcss')
-	<title>test</title>
-	<link rel="stylesheet" type="text/css" href="{{ elixir('css/app.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ elixir('css/home.css') }}">
-@endsection
-
-@section('bodyjs')
-    <script type="text/javascript" src="{{ elixir('js/app.js') }}"></script>
-	<script type="text/javascript">
-		//$("#myModal").modal("show");
-	</script>	
-@endsection
-
-
 @section('content')
-<div class="side-nav" role="navigation">
-	<ul class="nav-side-nav">
-		<li><a href="#onepage" class="tooltip-side-nav"></a></li>
-		<li><a href="#twopage" class="tooltip-side-nav"></a></li>
-		<li><a href="#threepage" class="tooltip-side-nav"></a></li>
-		<li><a href="#fourpage" class="tooltip-side-nav"></a></li>
-		<li><a href="#fivepage" class="tooltip-side-nav"></a></li>
-	</ul>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Dashboard</div>
+
+                <div class="panel-body">
+                    You are logged in!
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="onepage" id="onepage">
-	<div class="onepage-bg" id="onepagebg"></div>
-	<div class="container">
-		<div class="row">
-			<div class="title-text">
-				<div class="col-md-12 headfontsize">
-					<h1 class="headh1content">
-						极客学院<br />
-						在这里你可以学习到<br />
-						你想要的
-					</h1>
-					<p>只要你有耐心，相信程序对你而言，小菜一碟，你一定是可以顺利拿下的<br />
-					小菜一碟，你一定是可以顺利拿下的</p>
-					<p class="btn-app-stroe">
-						<a class="btn btn-success btn-lg" href="#">立即注册，开始学习</a>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
+<div id="app">
+<passport-clients></passport-clients>
+<passport-authorized-clients></passport-authorized-clients>
+<passport-personal-access-tokens></passport-personal-access-tokens>
 </div>
 
-<div class="twopage" id="twopage">
-	<div class="twopage-text">
-		<h1 class="twopage-text-h1">
-			选择你的第一节课程进行学习<img src="{{ asset('images/twopage-h.jpg') }}">
-		</h1>
-	</div>
-	<div class="row">
-		<div class="twopage-courses col-md-4">
-			<a href="#">
-				<img src="{{ asset('images/twopage-1.jpg') }}">
-				<div class="classicon">
-					<h3>认真学习哦</h3>
-					<h1><strong>学习这个课程</strong></h1>
-				</div>
-			</a>
-		</div>
-		<div class="twopage-courses col-md-4">
-			<a href="#">
-				<img src="{{ asset('images/twopage-2.jpg') }}">
-				<div class="classicon">
-					<h3>认真学习哦</h3>
-					<h1><strong>学习这个课程</strong></h1>
-				</div>
-			</a>
-		</div>
-		<div class="twopage-courses col-md-4">
-			<a href="#">
-				<img src="{{ asset('images/twopage-3.jpg') }}">
-				<div class="classicon">
-					<h3>认真学习哦</h3>
-					<h1><strong>学习这个课程</strong></h1>
-				</div>
-			</a>
-		</div>
-	</div>
-	<div class="twopagebtn">
-		<a href="#" id="twopage-easy" class="btn btn-success btn-lg">如果你想学习快快开始吧</a>
-	</div>
-</div>
+<div class="container">
+    <div class="starter">
+    <h1>Bootstrap starter template<small><abbr title="attribute">attr</abbr></small></h1>
+    <p class="lead text-center">欢迎来到自由学习网</p>
+    You can use the mark tag to <mark>highlight</mark> text.
+    <del>This line of text is meant to be treated as deleted text.</del>
 
-<div class="threepage" id="threepage">
-	<div class="threepage-bg" id="threepagebg">
-	<div class="threepagecontent">
-		<div class="threepagetext">
-			<h1>为什么要学习编程思想</h1>
-			<p>只要你有耐心，相信程序对你而言，小菜一碟，你一定是可以顺利拿下的<br />
-			小菜一碟，你一定是可以顺利</p>
-		</div>
-		<a href="#" class="btn btn-success btn-lg threepagebtncontent">
-			快速注册，要干活了
-		</a>
-	</div>
-	</div>
-</div>
+    </div>
 
-<div class="fourpage" id="fourpage">
-	<div class="container" style="width: 70%">
-		<div class="coursexingqing-text">
-			<h1>要干活，必须要工具到位</h1>
-			<p>怎么才能做到最快速的学习呢，你知道吗？</p>
-		</div>
-		<div id="carousel-example-generic" class="carousel slide" data-interval="5000" style="height: 300px">
-			<ol class="carousel-indicators" style="margin-top: 200px">
-				<li data-target="#carousel-example-generic" data-slide="0" class="active"></li>
-				<li data-target="#carousel-example-generic" data-slide="1"></li>
-				<li data-target="#carousel-example-generic" data-slide="2"></li>
-			</ol>
-			<div class="carousel-inner">
-				<div class="item active" style="width: 500px">
-					<img src="{{ asset('images/four-1.jpg') }}">
-				</div>
-				<div class="item" style="width: 500px">
-					<img src="{{ asset('images/four-1.jpg') }}">
-				</div>
-				<div class="item" style="width: 500px">
-					<img src="{{ asset('images/four-1.jpg') }}">
-				</div>
-			</div>
-			<a href="#carousel-example-generic" class="left carousel-control" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left"></span>
-			</a>
-			<a href="#carousel-example-generic" class="right carousel-control" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-right"></span>
-			</a>
-		</div>
-	</div>
-</div>
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Library</a></li>
+        <li class="active">Data</li>
+    </ol>
 
-<div class="fivepage" id="fivepage">
-	<div class="fivepage-bg" id="fivepagebg">
-		<div class="container">
-			<div class="footertext">
-				<h1>你还在等待吗？赶紧动手吧</h1>
-			</div>
-			<div class="footerbtncenter">
-				<div class="row">
-					<a href="#">
-						<div class="col-md-4">
-							<img src="{{ asset('images/five-1.jpg') }} " class="footerbtn queyeicon">
-						</div>
-					</a>
-					<a href="#">
-						<div class="col-md-4">
-							<img src="{{ asset('images/five-2.jpg') }} " class="footerbtn queyeicon">
-						</div>
-					</a>
-					<a href="#">
-						<div class="col-md-4">
-							<img src="{{ asset('images/five-3.jpg') }} " class="footerbtn queyeicon">
-						</div>
-					</a>
-				</div>
-			</div>
-			<div class="footertextbtn">
-				<button type="button" class="btn btn-success btn-lg" style="font-size: 25px;">你还在等待吗？</button>
-				<p class="footertextbtn-text">
-					只要你有耐心，相信对你不是难事！
-				</p>
-			</div>
-		</div>
-	</div>
+    <span class="label label-default">Default</span>
+    <span class="label label-primary">Primary</span>
+    <span class="label label-success">Success</span>
+    <h3>Example Header <span class="label label-info">New</span></h3>
+
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        Well done!
+    </div>
+
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>Warning!</strong> Better check yourself, you're not looking too good.
+    </div>
+
+    <div class="jumbotron">
+        <h1>Hello, world!</h1>
+    </div>
+
+    <form role="form">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputFile">File input</label>
+        <input type="file" id="exampleInputFile">
+        <p class="help-block">Example block-level help text here.</p>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Check me out
+        </label>
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+    <nav>
+        <ul class="pagination pagination-lg">
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">&raquo;</a></li>    
+        </ul>
+    </nav>
+
+    <nav>
+        <ul class="pager">
+            <li class="previous disabled"><a href="#">&larr; Older</a></li>
+            <li class="next"><a href="#">Newer &rarr;</a></li>
+        </ul>
+    </nav>
 </div>
 @endsection
-

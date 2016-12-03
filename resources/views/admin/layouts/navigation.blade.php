@@ -251,7 +251,16 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="{{ url('houtai/letuslearnenglish') }}"><i class="fa fa-table fa-fw"></i> Let's Learn English</a>
+                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 节目内容管理<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{ url('houtai/programinfos') }}">全部节目内容</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('houtai/programinfos/create') }}">新增节目内容</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>

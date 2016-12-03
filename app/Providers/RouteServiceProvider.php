@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapAdminRoutes();
     }
 
     /**
@@ -69,11 +69,28 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::group([
-            'middleware' => 'api',
-            'namespace' => $this->namespace,
+            'middleware' => ['api', 'auth:api'],
+            'namespace' => $this->namespace . '\Api',
             'prefix' => 'api',
         ], function ($router) {
             require base_path('routes/api.php');
+        });
+    }
+
+    /** 
+     * 管理后台
+     * 
+     * web中间件换成admin中间件吗？需求一致就没必要换
+     *
+     */
+    protected function mapAdminRoutes()
+    {
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => $this->namespace . '\Admin',
+            'prefix' => 'houtai',
+        ], function ($router) {
+            require base_path('routes/admin.php');
         });
     }
 }

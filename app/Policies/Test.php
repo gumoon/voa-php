@@ -2,7 +2,7 @@
 
 namespace voa\Policies;
 
-use voa\User;
+use voa\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class Test

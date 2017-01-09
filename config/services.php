@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => voa\User::class,
+        'model' => voa\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

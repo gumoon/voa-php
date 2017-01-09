@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(voa\User::class, function (Faker\Generator $faker) {
+$factory->define(voa\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [

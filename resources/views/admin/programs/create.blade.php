@@ -39,6 +39,36 @@
 				console.log(data);
 				//表单重置
 				document.getElementById('programCreate').reset();
+				//错误提示删除
+				$("#namediv").removeClass('has-error');
+				$("#introdiv").addClass('has-error');
+				$("#typediv").addClass('has-error');
+				$("#statusdiv").addClass('has-error');
+				$("#namediv .help-block").html("");
+				$("#introdiv .help-block").html("");
+				$("#typediv .help-block").html("");
+				$("#statusdiv .help-block").html("");
+			})
+			.fail(function(data){
+				console.log(data.responseJSON);
+				//此处使用js来验证值，我还需要精进下。
+				if( data.responseJSON.name[0] != ''){
+					$("#namediv").addClass('has-error');
+					$("#namediv .help-block").html("<strong>"+data.responseJSON.name[0]+"</strong>");
+				}
+				if( data.responseJSON.intro[0] != ''){
+					$("#introdiv").addClass('has-error');
+					$("#introdiv .help-block").html("<strong>"+data.responseJSON.intro[0]+"</strong>");
+				}
+				if( data.responseJSON.type[0] != ''){
+					$("#typediv").addClass('has-error');
+					$("#typediv .help-block").html("<strong>请选择节目类型</strong>");
+				}
+				if( data.responseJSON.status[0] != ''){
+					$("#statusdiv").addClass('has-error');
+					$("#statusdiv .help-block").html("<strong>请选择节目当前播出状态</strong>");
+				}
+				
 			});
 			return false;
 		});
@@ -67,15 +97,21 @@
         				<div class="row">
         					<div class="col-lg-6">
         						<form role="form" id="programCreate" {{-- method="POST" action="{{ url('houtai/programs') --}}">
-        							<div class="form-group">
+        							<div class="form-group" id="namediv">
         								<label>节目名称：</label>
         								<input type="text" id="name" name="name" class="form-control" placeholder="请输入VOA官网上的节目标准名称，用英文输入">
+
+	                                    <span class="help-block">
+	                                    </span>
         							</div>
-									<div class="form-group">
+									<div class="form-group" id="introdiv">
 										<label>节目简介：</label>
 										<textarea class="form-control" rows="3" id="intro" name="intro" placeholder="节目的英文介绍"></textarea>
+
+										<span class="help-block">
+	                                    </span>
 									</div>
-									<div class="form-group">
+									<div class="form-group" id="typediv">
 										<label>节目类型：</label>
 										<select class="form-control" id="type" name="type">
 											<option value="-1">请选择节目类型</option>
@@ -84,8 +120,11 @@
 											<option value="3">音视频节目</option>
 											<option value="0">其他类型</option>
 										</select>
+
+										<span class="help-block">
+	                                    </span>
 									</div>
-									<div class="form-group">
+									<div class="form-group" id="statusdiv">
 										<label>节目当前播出状态：</label>
 										<select class="form-control" id="status" name="status">
 											<option value="-1">请选择节目当前播出状态</option>
@@ -93,6 +132,9 @@
 											<option value="1">已停播</option>
 											<option value="99">我们平台已下架</option>
 										</select>
+
+										<span class="help-block">
+	                                    </span>
 									</div>
 									{{ csrf_field() }}
 									<button type="submit" class="btn btn-success">添加</button>

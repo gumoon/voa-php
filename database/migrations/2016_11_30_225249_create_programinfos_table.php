@@ -26,6 +26,7 @@ class CreateProgramInfosTable extends Migration
             $table->text('detail')->comment('json格式的更多信息');
             $table->unsignedTinyInteger('status')->comment('是否显示');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -2,9 +2,10 @@
 
 namespace voa\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use voa\Http\Requests\StoreProgramPost;
+use voa\Models\Program;
 use voa\Http\Controllers\Controller;
+
 
 class ProgramController extends Controller
 {
@@ -15,7 +16,7 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $programs = DB::table('programs')->get();
+        $programs = Program::all();
 
         return view('admin.programs.index', ['programs' => $programs]);
     }
@@ -37,23 +38,16 @@ class ProgramController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProgramPost $request)
     {
-        // return response()->json(array('a' => 'b'));
+        $program = new Program;
 
-        $name = $request->input('name');
-        $intro = $request->input('intro');
-        $type = $request->input('type');
-        $status = $request->input('status');
+        $program->name = $request->input('name');
+        $program->intro = $request->input('intro');
+        $program->type = $request->input('type');
+        $program->status = $request->input('status');
 
-        $postData = array(
-            'name' => $name,
-            'intro' => $intro,
-            'type' => $type,
-            'status' => $status,
-        );
-
-        $id = DB::table('programs')->insertGetId($postData);
+        $program->save();
 
         if( $request->is('*/ajax/*') )
         {
@@ -62,10 +56,6 @@ class ProgramController extends Controller
                 'msg' => 'success',
                 'data' => array()
             );
-            if( $id <= 0 )
-            {
-                //抛例外
-            }
 
             return response()->json($ret);
         }
@@ -96,7 +86,8 @@ class ProgramController extends Controller
     public function edit($id)
     {
         $id = intval($id);
-        $program = DB::table('programs')->where('id', $id)->first();
+
+        $program = Program::findOrFail($id);
 
         return view('admin.programs.edit', ['program' => $program]);
     }
@@ -108,22 +99,17 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreProgramPost $request, $id)
     {
-        $name = $request->input('name');
-        $intro = $request->input('intro');
-        $type = $request->input('type');
-        $status = $request->input('status');
-
-        $postData = array(
-            'name' => $name,
-            'intro' => $intro,
-            'type' => $type,
-            'status' => $status,
-        );
-
         $id = intval($id);
-        $affectRows = DB::table('programs')->where('id', $id)->update($postData);
+        $program = Program::find($id);
+
+        $program->name = $request->input('name');
+        $program->intro = $request->input('intro');
+        $program->type = $request->input('type');
+        $program->status = $request->input('status');
+
+        $program->save();
 
         if( $request->is('*/ajax/*') )
         {
@@ -132,10 +118,6 @@ class ProgramController extends Controller
                 'msg' => 'success',
                 'data' => array('')
             );
-            if( $affectRows < 1)
-            {
-                //抛错误
-            }
 
             return response()->json($ret);
         }

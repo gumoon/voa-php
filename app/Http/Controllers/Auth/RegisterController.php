@@ -2,7 +2,7 @@
 
 namespace voa\Http\Controllers\Auth;
 
-use voa\User;
+use voa\Models\User;
 use voa\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;

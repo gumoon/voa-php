@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => voa\User::class,
+            'model' => voa\Models\User::class,
         ],
 
         // 'users' => [

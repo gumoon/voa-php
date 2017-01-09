@@ -1,10 +1,10 @@
 <?php
 
-namespace voa;
+namespace voa\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Test extends Model
+class Program extends Model
 {
     //
 }

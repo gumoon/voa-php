@@ -20,10 +20,6 @@ Route::get('/', function () {
     //return view('welcome');
     return view('admin.index');
 });
-Route::get('letuslearnenglish', function () {
-    //return view('welcome');
-    return view('admin.letuslearnenglish');
-});
 
 Route::resource('programs', 'ProgramController');
 Route::resource('programinfos', 'ProgramInfoController');

@@ -1,6 +1,6 @@
 <?php
 
-namespace voa;
+namespace voa\Models;
 
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;

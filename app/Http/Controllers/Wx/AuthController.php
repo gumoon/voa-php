@@ -5,6 +5,7 @@ namespace voa\Http\Controllers\Wx;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Log;
+use voa\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {

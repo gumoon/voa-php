@@ -40,8 +40,13 @@ class AuthController extends Controller
         //生成我们自己的 access_token
         $accessToken = bcrypt(env('WXMINIAPP_APPID'));
 
+        $data = array(
+        	'session_key' => $res->session_key,
+        	'expires_in' => $res->expires_in,
+        	'openid' => $res->openid
+        );
         //存储到redis中
-        Redis::set($accessToken, $res->toString());
+        Redis::set($accessToken, json_encode($data));
 
         $this->successJson($accessToken);
     }

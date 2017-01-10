@@ -12,7 +12,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     //封装成功返回的json
-    protected function successJson( $data = null )
+    protected function successJson($data = null)
     {
     	$ret = array(
     		'err_no' => 0,
@@ -21,5 +21,18 @@ class Controller extends BaseController
     	);
 
     	return response()->json( $ret );
+    }
+
+
+    //封装错误返回的json
+    protected function failedJson($errNo, $msg)
+    {
+        $ret = array(
+            'err_no' => $errNo
+            'msg' => $msg,
+            'data' => new \stdClass
+        );
+
+        return response()->json( $ret );
     }
 }

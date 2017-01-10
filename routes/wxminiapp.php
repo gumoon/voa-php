@@ -12,5 +12,5 @@
 */
 
 //认证路由
-Route::get('/auth/token', 'AuthController@token');
-
+Route::post('/auth/token', 'AuthController@token');
+Route::post('/user/info', 'UserController@info');

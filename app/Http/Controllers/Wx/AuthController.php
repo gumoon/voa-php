@@ -50,6 +50,14 @@ class AuthController extends Controller
         //存储到redis中
         Redis::set($accessToken, json_encode($data));
 
-        $this->successJson($accessToken);
+        Log::info($accessToken);
+        $ret = array(
+    		'err_no' => 0,
+    		'msg' => '成功',
+    		'data' => $accessToken
+    	);
+        Log::info($ret);
+    	return response()->json( $ret );
+        // $this->successJson($accessToken);
     }
 }

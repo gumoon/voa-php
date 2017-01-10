@@ -28,7 +28,7 @@ class Controller extends BaseController
     protected function failedJson($errNo, $msg)
     {
         $ret = array(
-            'err_no' => $errNo
+            'err_no' => $errNo,
             'msg' => $msg,
             'data' => new \stdClass
         );

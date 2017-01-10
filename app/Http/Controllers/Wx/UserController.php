@@ -23,6 +23,12 @@ class UserController extends Controller
         Log::info($res);
 
 
-        $this->successJson($res);
+        $ret = array(
+            'err_no' => 0,
+            'msg' => '成功',
+            'data' => new \stdClass
+        );
+        Log::info($ret);
+        return response()->json( $ret );
     }
 }

@@ -28,8 +28,10 @@ class AuthController extends Controller
             'grant_type' => 'authorization_code'
         );
 
-        $res = $client->request('get', $url, ['query' => $tmp]);
-        Log::info($res->getBody());
+        $resp = $client->request('get', $url, ['query' => $tmp]);
+        Log::info($resp->getBody());
+        $respBody = $resp->getBody();
+        $res = json_decode($respBody);
 
         //接口调用出错的情况
         if(isset($res->errcode) && !empty($data->errcode))

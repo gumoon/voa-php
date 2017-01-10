@@ -30,19 +30,18 @@ class AuthController extends Controller
 
         $res = $client->request('get', $url, ['query' => $tmp]);
         Log::info($res->getBody());
-        $data = json_decode($res, true);
 
         //接口调用出错的情况
-        if(isset($data['errcode']) && !empty($data['errcode']))
+        if(isset($res->errcode) && !empty($data->errcode))
         {
-        	$this->failedJson($data['errcode'], $data['errmsg']);
+        	$this->failedJson($data->errcode, $data->errmsg);
         }
 
         //生成我们自己的 access_token
         $accessToken = bcrypt(env('WXMINIAPP_APPID'));
 
         //存储到redis中
-        Redis::set($accessToken, $res);
+        Redis::set($accessToken, $res->toString());
 
         $this->successJson($accessToken);
     }

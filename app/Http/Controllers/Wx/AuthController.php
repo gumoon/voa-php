@@ -30,7 +30,7 @@ class AuthController extends Controller
 
         $res = $client->request('get', $url, ['query' => $tmp]);
         Log::info($res->getBody());
-        $data = json_decode($res);
+        $data = json_decode($res, true);
 
         //接口调用出错的情况
         if(isset($data['errcode']) && !empty($data['errcode']))

@@ -23,8 +23,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
     }
 
@@ -40,6 +38,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
 
         $this->mapAdminRoutes();
+
+        $this->mapWxRoutes();
     }
 
     /**
@@ -91,6 +91,21 @@ class RouteServiceProvider extends ServiceProvider
             'prefix' => 'houtai',
         ], function ($router) {
             require base_path('routes/admin.php');
+        });
+    }
+
+    /** 
+     * 微信小程序接口
+     * 
+     */
+    protected function mapWxRoutes()
+    {
+        Route::group([
+            'middleware' => 'wxminiapp',
+            'namespace' => $this->namespace . '\Wx',
+            'prefix' => 'wx',
+        ], function ($router) {
+            require base_path('routes/wxminiapp.php');
         });
     }
 }

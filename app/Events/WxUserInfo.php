@@ -9,18 +9,23 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class Test
+class WxUserInfo
 {
     use InteractsWithSockets, SerializesModels;
+
+    public $openid;
+
+    public $userInfo;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($openid, $userInfo)
     {
-        //
+        $this->openid = $openid;
+        $this->userInfo = $userInfo;
     }
 
     /**

@@ -29,7 +29,7 @@ Auth::routes();
 //网站首页路由
 Route::get('/home', 'HomeController@index');
 Route::get('/', 'HomeController@index');
-
+Route::get('/test', 'HomeController@test');
 
 //测试 OAuth2
 Route::get('/redirect', function () {

@@ -13,8 +13,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'voa\Events\SomeEvent' => [
-            'voa\Listeners\EventListener',
+        'voa\Events\WxUserLogin' => [
+            'voa\Listeners\RecordOpenId',
+        ],
+        'voa\Events\WxUserInfo' => [
+            'voa\Listeners\RecordWxUserInfo'
         ],
     ];
 

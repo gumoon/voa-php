@@ -3,10 +3,10 @@
 namespace voa\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use voa\Http\Controllers\Controller;
+use voa\Models\Ad;
 
-class ProgramInfoController extends Controller
+class AdController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,9 @@ class ProgramInfoController extends Controller
      */
     public function index()
     {
-        return view('admin.programinfos.index');
+        $ads = Ad::all();
+
+        return view('admin.ads.index', ['ads' => $ads]);
     }
 
     /**
@@ -25,10 +27,7 @@ class ProgramInfoController extends Controller
      */
     public function create()
     {
-        $programs = DB::table('programs')->get();
-        
 
-        return view('admin.programinfos.create', ['programs' => $programs]);
     }
 
     /**
@@ -61,7 +60,7 @@ class ProgramInfoController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.programinfos.edit');
+        return view('admin.ads.edit');
     }
 
     /**

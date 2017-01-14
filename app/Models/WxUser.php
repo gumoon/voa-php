@@ -5,7 +5,7 @@ namespace voa\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class WxAccount extends Model
+class WxUser extends Model
 {
     use SoftDeletes;
 

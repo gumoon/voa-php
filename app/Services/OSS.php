@@ -1,6 +1,6 @@
 <?php
 
-namespace moum\Services;
+namespace voa\Services;
 
 use JohnLui\AliyunOSS\AliyunOSS;
 

@@ -11,6 +11,30 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    //VOA节目4个大类
+    protected $programCategories = array(
+        '其他类型',
+        '音频节目',
+        '视频节目',
+        '音视频节目'
+    );
+
+    //VOA节目分三个level
+    protected $levels = array(
+        array(
+            'id' => 1,
+            'name' => 'Level One'
+        ),
+        array(
+            'id' => 2,
+            'name' => 'Level Two'
+        ),
+        array(
+            'id' => 3,
+            'name' => 'Level Three'
+        ),
+    );
+
     //封装成功返回的json
     protected function successJson($data = null)
     {

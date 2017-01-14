@@ -10,61 +10,108 @@
 <script src="{{ asset('admin/vendor/raphael/raphael.min.js') }}"></script>
 <script src="{{ asset('admin/vendor/morrisjs/morris.min.js') }}"></script>
 <script src="{{ asset('admin/data/morris-data.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admin/data/jquery.form.js') }}"></script>
 @endsection
 
 @section('customjs')
 <script type="text/javascript">
-	$(document).ready(function(){
-		var url = "{{ url('houtai/ajax/programs/update/') }}";
-		var id = $('#programId').val();
-		url = url + '/' + id;
+var changeCatUrl = "{{ url('houtai/programs/get_types') }}";
 
-		$('#programEdit').submit(function(){
-			var name = $("#name").val();
-			var intro = $("#intro").val();
-			var type = $("#type").val();
-			var status = $("#status").val();
-			var token = $("input[name='_token']").val();
-			var postData = {name: name, intro: intro, type: type, status: status, _token: token};
-			console.log(postData);
-			
-			$.post(url, postData, function(data){
-				console.log(data);
+function processJson(data){
+	$("#image_url1").attr("src", data.data.url);
+	$("#image_url1").attr("alt", data.data.filename);
+}
 
-				if(data.errno)
-				{
-					alert(data.msg);
-				}
-				else
-				{
-					alert(data.msg)
-				}
-				window.location.href = "{{ route('programs.index') }}";
-			})
-			.fail(function(data){
-				console.log(data.responseJSON);
-				//此处使用js来验证值，我还需要精进下。
-				if( data.responseJSON.name[0] != ''){
-					$("#namediv").addClass('has-error');
-					$("#namediv .help-block").html("<strong>"+data.responseJSON.name[0]+"</strong>");
-				}
-				if( data.responseJSON.intro[0] != ''){
-					$("#introdiv").addClass('has-error');
-					$("#introdiv .help-block").html("<strong>"+data.responseJSON.intro[0]+"</strong>");
-				}
-				if( data.responseJSON.type[0] != ''){
-					$("#typediv").addClass('has-error');
-					$("#typediv .help-block").html("<strong>请选择节目类型</strong>");
-				}
-				if( data.responseJSON.status[0] != ''){
-					$("#statusdiv").addClass('has-error');
-					$("#statusdiv .help-block").html("<strong>请选择节目当前播出状态</strong>");
-				}
-			});
-			
-			return false;
-		});
+function clickButton()
+{
+	$("#image_url1").attr("src", "");
+	$("#image_url1").attr("alt", "");
+}
+
+function processError(){
+	alert('上传出错了');
+}
+//选择文件后，自动上传图片
+function changeFile(){
+	var options = {
+		url: "{{ url('/tools/upload_image') }}",
+		type: 'post',
+		dataType: 'json',
+		success: processJson,
+		error: processError
+	};
+	$("#uploadImage").ajaxSubmit(options);
+	return false;
+}
+
+//分类改变调用函数
+function changeCat(){
+	var category_id = $("#category option:selected").val();
+	var token = $("input[name='_token']").val();
+	var postData = {category_id: category_id, _token: token};
+	console.log(postData);
+	$.post(changeCatUrl, postData, function(data){
+		if(data.err_no){
+			alert(data.msg);
+		}else{
+			console.log(data);
+			$("#program_type").empty();
+			for(key in data.data){
+				var tmp = data.data[key];
+				var str = '<option value="'+tmp.category_id+'">'+tmp.name+'</option>';
+				$("#program_type").append(str);
+			}
+		}
 	});
+}
+
+function submitEditProgram()
+{
+	var title = $("#title").val();
+	var program_type_id = $("#program_type :selected").val();
+	var content = $("#content").val();
+	var image_url = $("#image_url1").attr("alt");
+	var published_at = $("#published_at").val();
+	var anchor_id = $("#anchor_id :selected").val();
+	var level = $("#level :selected").val();
+	var audio_url = $("#audio_url").val();
+	var video_url = $("#video_url").val();
+
+
+	var postData = {title: title, 
+		anchor_id: anchor_id,
+		program_type_id: program_type_id,
+		level: level,
+		image_url: image_url,
+		audio_url: audio_url,
+		video_url: video_url,
+		content: content,
+		published_at: published_at
+	};
+	console.log(postData);
+
+	var options = {
+		url: "{{ url('/houtai/programs') }}"+"/"+"{{$program->id}}",
+		type: 'put',
+		dataType: 'json',
+		data: postData,
+		success: function(data){
+			alert(data.msg);
+			window.location.href = "{{ url('/houtai/programs') }}";
+		},
+		error: function(){
+			alert('出错了')
+		}
+	};
+	$("#programEdit").ajaxSubmit(options);
+	return false;
+}
+
+$(document).ready(function(){
+	$("#image_url").on("change", changeFile);
+	$("#category").on("change", changeCat);
+	$("#programEdit").submit(submitEditProgram);
+});
 </script>
 @endsection
 
@@ -88,52 +135,117 @@
         			<div class="panel-body">
         				<div class="row">
         					<div class="col-lg-6">
-        						<form role="form" id="programEdit">
-        							<div class="form-group" id="namediv">
-        								<label>节目名称：</label>
-        								<input type="text" id="name" name="name" class="form-control" placeholder="请输入VOA官网上的节目标准名称，用英文输入" value="{{ $program->name }}">
+    							<div class="form-group">
+    								<label>标题：</label>
+    								<input type="text" id="title" name="title" class="form-control" placeholder="" value="{{$program->title}}">
+    							</div>
+    						</div>
+    						<div class="col-lg-6">
+								<div class="form-group">
+									<label>发布日期：</label>
+									<input type="date" name="published_at" id="published_at" class="form-control" value="{{$program->published_at}}">
+								</div>
+							</div>
+						</div>
 
-        								<span class="help-block">
-	                                    </span>
-        							</div>
-									<div class="form-group" id="introdiv">
-										<label>节目简介：</label>
-										<textarea class="form-control" rows="3" id="intro" name="intro" placeholder="节目的英文介绍">{{ $program->intro }}</textarea>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>节目大类：</label>
+									<select class="form-control" id="category">
+										<option value="-1">请选择大类</option>
+										@foreach ($programCategories as $cat_id => $cat_name)
+										<option value="{{ $cat_id }}" @if($cat_id == $program->programType->category_id) selected @endif>{{ $cat_name }}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>		
 
-										<span class="help-block">
-	                                    </span>
-									</div>
-									<div class="form-group" id="typediv">
-										<label>节目类型：</label>
-										<select class="form-control" id="type" name="type">
-											<option value="-1">请选择节目类型</option>
-											<option value="1" @if ($program->type == 1) selected @endif >音频节目</option>
-											<option value="2" @if ($program->type == 2) selected @endif >视频节目</option>
-											<option value="3" @if ($program->type == 3) selected @endif >音视频节目</option>
-											<option value="0" @if ($program->type == 0) selected @endif >其他类型</option>
-										</select>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>节目小类：</label>
+									<select class="form-control" id="program_type" name="program_type">
+										<option value="-1">请选择节目小类</option>
+										@foreach($catTypes AS $type)
+										<option value="{{$type->id}}" @if($type->id == $program->program_type_id) selected @endif >{{$type->name}}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+						</div>
 
-										<span class="help-block">
-	                                    </span>
-									</div>
-									<div class="form-group" id="statusdiv">
-										<label>节目当前播出状态：</label>
-										<select class="form-control" id="status" name="status">
-											<option value="-1">请选择节目当前播出状态</option>
-											<option value="0" @if ($program->status == 0) selected @endif >正常播出</option>
-											<option value="1" @if ($program->status == 1) selected @endif >已停播</option>
-											<option value="99" @if ($program->status == 99) selected @endif >我们平台已下架</option>
-										</select>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>主播</label>
+									<select class="form-control" id="anchor_id" name="anchor_id">
+										<option value="-1">请选择主播</option>
+										@foreach($anchors AS $anchor)
+										<option value="{{$anchor->id}}" @if($anchor->id == $program->anchor_id) selected @endif>{{$anchor->name}}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>适合哪个水平的学习者</label>
+									<select class="form-control" id="level" name="level">
+										<option value="-1">请选择合适等级</option>
+										@foreach($levels AS $level)
+										<option value="{{$level['id']}}" @if($level['id'] == $program->level) selected @endif>{{$level['name']}} </option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+						</div>
 
-										<span class="help-block">
-	                                    </span>
-									</div>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>音频链接</label>
+									<input type="text" name="audio_url" id="audio_url" class="form-control" value="{{$program->audio_url}}">
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>视频链接</label>
+									<input type="text" name="video_url" id="video_url" class="form-control" value="{{$program->video_url}}">
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<form role="form" id="uploadImage" enctype="multipart/form-data">
+        							<div class="form-group">
+                                            <label>头图</label>
+                                            <input type="file" id="image_url" name="image_url">
+                                            {{ csrf_field() }}
+                                 	</div>
+								</form>
+
+								<img src="{{$program->image_url_src}}" alt="{{$program->image_url}}" id="image_url1" style="width: 400px; height: 200px">
+								<button class="btn btn-default" onclick="clickButton()">删除</button>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+										<label>简介：</label>
+										<textarea class="form-control" name="content" id="content" rows="10">{{$program->content}}</textarea>
+								</div>
+							</div>
+						</div>
+									
+						<div class="row">
+							<div class="col-lg-6">
+							</div>
+							<div class="col-lg-6">
+								<form role="form" id="programEdit"">
 									{{ csrf_field() }}
-									<input type="hidden" name="id" id="programId" value="{{ $program->id }}">
-									<button type="submit" class="btn btn-success">确认修改</button>
-        						</form>
-        					</div>
-        				</div>
+									<button type="submit" class="btn btn-success">更新</button>
+								</form>		
+							</div>					
+						</div>
+
         			</div>
         		</div>
         	</div>

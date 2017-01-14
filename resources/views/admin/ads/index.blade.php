@@ -18,7 +18,7 @@
 @section('customjs')
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#programTables").DataTable({
+		$("#adTables").DataTable({
 			responsive: true,
 			"lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "全部"]]
 		});
@@ -33,7 +33,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">全部节目</h1>
+                <h1 class="page-header">全部广告</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -41,29 +41,30 @@
         	<div class="col-lg-12">
         		<div class="panel panel-default">
         			<div class="panel-heading">
-        				节目列表
+        				广告列表
         			</div>
         			<div class="panel-body">
-        				<table  width="100%" class="table table-striped table-bordered table-hover" id="programTables">
+        				<table  width="100%" class="table table-striped table-bordered table-hover" id="adTables">
         					<thead>
         						<tr>
         							<th>ID</th>
         							<th>节目名</th>
-                                    <th>主播</th>
+        							<th>节目类型</th>
         							<th>操作</th>
         						</tr>
         					</thead>
         					<tbody>
-        					@forelse ($programs as $program)
+        					@forelse ($ads as $program)
 							    <tr>
         							<td>{{ $program->id }}</td>
-        							<td>{{ $program->title }}</td>
-        							<td>{{ $program->anchor->name }}</td>
+        							<td>{{ $program->name }}</td>
+        							<td>{{ $program->type }}</td>
+        							<td>{{ $program->status }}</td>
         							<td><a href="{{ route('programs.edit', ['program' => $program->id]) }}">编辑</a></td>
         						</tr>
 							@empty
 							    <tr>
-							    	<td>No programs</td>
+							    	<td>No ads</td>
 							    </tr>
 							@endforelse
         						

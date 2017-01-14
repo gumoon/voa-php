@@ -21,11 +21,9 @@ Route::get('/', function () {
     return view('admin.index');
 });
 
-Route::resource('programs', 'ProgramController');
-Route::resource('programinfos', 'ProgramInfoController');
+Route::post('/programs/get_types', 'ProgramController@getTypesByCatId');
 
-//ajax请求都以ajax开头
-Route::post('ajax/programs/store', 'ProgramController@store');
-Route::post('ajax/programs/update/{id}', 'ProgramController@update');
-Route::post('ajax/programinfos/store', 'ProgramInfoController@store');
-Route::post('ajax/programinfos/update/{id}', 'ProgramInfoController@update');
+Route::resource('program_types', 'ProgramTypeController');
+Route::resource('programs', 'ProgramController');
+Route::resource('anchors', 'AnchorController');
+Route::resource('ads', 'AdController');

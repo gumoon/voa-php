@@ -239,6 +239,30 @@
                     <a href="{{ url('houtai') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
+                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 节目分类管理<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{ url('houtai/program_types') }}">全部节目分类</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('houtai/program_types/create') }}">新增节目分类</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 节目主播管理<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{ url('houtai/anchors') }}">全部节目主播</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('houtai/anchors/create') }}">新增节目主播</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 节目管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -251,13 +275,13 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 节目内容管理<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 广告管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="{{ url('houtai/programinfos') }}">全部节目内容</a>
+                            <a href="{{ url('houtai/ads') }}">全部广告</a>
                         </li>
                         <li>
-                            <a href="{{ url('houtai/programinfos/create') }}">新增节目内容</a>
+                            <a href="{{ url('houtai/ads/create') }}">新增广告</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

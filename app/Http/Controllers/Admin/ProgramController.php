@@ -2,10 +2,12 @@
 
 namespace voa\Http\Controllers\Admin;
 
-use voa\Http\Requests\StoreProgramPost;
-use voa\Models\Program;
+use Illuminate\Http\Request;
 use voa\Http\Controllers\Controller;
-
+use voa\Models\Program;
+use voa\Models\Anchor;
+use voa\Models\ProgramType;
+use Config;
 
 class ProgramController extends Controller
 {
@@ -28,8 +30,13 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.programs.create');
+        $anchors = Anchor::all();
+
+        return view('admin.programs.create', [
+                'programCategories' => $this->programCategories, 
+                'levels' => $this->levels,
+                'anchors' => $anchors
+            ]);
     }
 
     /**
@@ -38,32 +45,33 @@ class ProgramController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProgramPost $request)
+    public function store(Request $request)
     {
-        $program = new Program;
+        $this->validate($request, [
+            'title' => 'required',
+            'anchor_id' => 'bail|required|exists:anchors,id',
+            'program_type_id' => 'bail|required|exists:program_types,id',
+            'level' => 'required|in:1,2,3',
+            'image_url' => 'required',
+            'content' => 'required',
+            'published_at' => 'required'
+        ]);
 
-        $program->name = $request->input('name');
-        $program->intro = $request->input('intro');
-        $program->type = $request->input('type');
-        $program->status = $request->input('status');
+        $program = new Program;
+        $program->title = $request->input('title');
+        $program->anchor_id = $request->input('anchor_id');
+        $program->program_type_id = $request->input('program_type_id');
+        $program->level = $request->input('level');
+        $program->image_url = $request->input('image_url');
+        $program->audio_url = $request->input('audio_url');
+        $program->video_url = $request->input('video_url');
+        $program->content = $request->input('content');
+        $program->published_at = $request->input('published_at');
 
         $program->save();
 
-        if( $request->is('*/ajax/*') )
-        {
-            $ret = array(
-                'errno' => 0,
-                'msg' => 'success',
-                'data' => array()
-            );
+        return $this->successJson();
 
-            return response()->json($ret);
-        }
-        else
-        {
-            return redirect('/houtai/programs');
-        }
-        
     }
 
     /**
@@ -85,11 +93,20 @@ class ProgramController extends Controller
      */
     public function edit($id)
     {
-        $id = intval($id);
+        $program = Program::find($id);
+        $program->image_url_src = $program->image_url ? Config::get('app.ossDomain').$program->image_url : '';
 
-        $program = Program::findOrFail($id);
+        $anchors = Anchor::all();
+        $catTypes = ProgramType::where('category_id', $program->programType->category_id)
+                        ->get();
 
-        return view('admin.programs.edit', ['program' => $program]);
+        return view('admin.programs.edit', [
+            'program' => $program, 
+            'programCategories' => $this->programCategories,
+            'anchors' => $anchors, 
+            'levels' => $this->levels,
+            'catTypes' => $catTypes
+        ]);
     }
 
     /**
@@ -99,32 +116,9 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreProgramPost $request, $id)
+    public function update(Request $request, $id)
     {
-        $id = intval($id);
-        $program = Program::find($id);
-
-        $program->name = $request->input('name');
-        $program->intro = $request->input('intro');
-        $program->type = $request->input('type');
-        $program->status = $request->input('status');
-
-        $program->save();
-
-        if( $request->is('*/ajax/*') )
-        {
-            $ret = array(
-                'errno' => 0,
-                'msg' => 'success',
-                'data' => array('')
-            );
-
-            return response()->json($ret);
-        }
-        else
-        {
-            return redirect('/houtai/programs');
-        }
+        //
     }
 
     /**
@@ -136,5 +130,19 @@ class ProgramController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * 根据cat_id 获取 types
+     * 
+     */
+    public function getTypesByCatId(Request $request)
+    {
+        $category_id = $request->input('category_id');
+
+        $types = ProgramType::where('category_id', $category_id)
+                    ->get();
+
+        return $this->successJson($types);
     }
 }

@@ -6,7 +6,7 @@ use voa\Events\WxUserInfo;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Log;
-use voa\Models\WxAccount;
+use voa\Models\WxUser;
 
 class RecordWxUserInfo implements ShouldQueue
 {
@@ -33,17 +33,17 @@ class RecordWxUserInfo implements ShouldQueue
         $openid = $event->openid;
         $userInfo = $event->userInfo;
 
-        $account = WxAccount::where('openid', $openid)->first();
+        $account = WxUser::where('openid', $openid)->first();
 
-        $wxAccount = WxAccount::find($account->id);
-        $wxAccount->nick_name = $userInfo['nick_name'];
-        $wxAccount->gender = $userInfo['gender'];
-        $wxAccount->language = $userInfo['language'];
-        $wxAccount->city = $userInfo['city'];
-        $wxAccount->province = $userInfo['province'];
-        $wxAccount->country = $userInfo['country'];
-        $wxAccount->avatar_url = $userInfo['avatar_url'];
+        $wxUser = WxUser::find($account->id);
+        $wxUser->nick_name = $userInfo['nick_name'];
+        $wxUser->gender = $userInfo['gender'];
+        $wxUser->language = $userInfo['language'];
+        $wxUser->city = $userInfo['city'];
+        $wxUser->province = $userInfo['province'];
+        $wxUser->country = $userInfo['country'];
+        $wxUser->avatar_url = $userInfo['avatar_url'];
 
-        $wxAccount->save();
+        $wxUser->save();
     }
 }

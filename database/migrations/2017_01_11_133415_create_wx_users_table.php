@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWxAccountsTable extends Migration
+class CreateWxUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateWxAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('wx_accounts', function (Blueprint $table) {
+        Schema::create('wx_users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('openid')->unique();
             $table->string('nick_name')->nullable();
@@ -35,6 +35,6 @@ class CreateWxAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wx_accounts');
+        Schema::dropIfExists('wx_users');
     }
 }

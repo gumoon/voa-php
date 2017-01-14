@@ -6,7 +6,7 @@ use voa\Events\WxUserLogin;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Log;
-use voa\Models\WxAccount;
+use voa\Models\WxUser;
 
 class RecordOpenId implements ShouldQueue
 {
@@ -31,8 +31,8 @@ class RecordOpenId implements ShouldQueue
         Log::info('RecordOpenId: '. $event->openid);
 
         $data = ['openid' => $event->openid];
-        $wxAccount = WxAccount::firstOrCreate($data);
+        $wxUser = WxUser::firstOrCreate($data);
 
-        Log::info($wxAccount);
+        Log::info($wxUser);
     }
 }

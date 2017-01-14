@@ -6,12 +6,17 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreateAdsTable' => $baseDir . '/database/migrations/2017_01_14_112108_create_ads_table.php',
+    'CreateAuthorsTable' => $baseDir . '/database/migrations/2017_01_14_111927_create_authors_table.php',
     'CreateFailedJobsTable' => $baseDir . '/database/migrations/2017_01_11_172426_create_failed_jobs_table.php',
+    'CreateFavoritesTable' => $baseDir . '/database/migrations/2017_01_14_112131_create_favorites_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
-    'CreateProgramInfosTable' => $baseDir . '/database/migrations/2016_11_30_225249_create_programinfos_table.php',
-    'CreateProgramsTable' => $baseDir . '/database/migrations/2016_11_28_015135_create_programs_table.php',
+    'CreateProgramAccessRecordsTable' => $baseDir . '/database/migrations/2017_01_14_112227_create_program_access_records_table.php',
+    'CreateProgramListenRecordsTable' => $baseDir . '/database/migrations/2017_01_14_112204_create_program_listen_records_table.php',
+    'CreateProgramTypesTable' => $baseDir . '/database/migrations/2017_01_14_111955_create_program_types_table.php',
+    'CreateProgramsTable' => $baseDir . '/database/migrations/2017_01_14_112028_create_programs_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
-    'CreateWxAccountsTable' => $baseDir . '/database/migrations/2017_01_11_133415_create_wx_accounts_table.php',
+    'CreateWxUsersTable' => $baseDir . '/database/migrations/2017_01_11_133415_create_wx_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
@@ -546,4 +551,5 @@ return array(
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'UpdateProgramsTable' => $baseDir . '/database/migrations/2017_01_14_142036_update_programs_table.php',
 );

@@ -40,6 +40,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapAdminRoutes();
 
         $this->mapWxRoutes();
+
+        $this->mapCommonRoutes();
     }
 
     /**
@@ -106,6 +108,22 @@ class RouteServiceProvider extends ServiceProvider
             'prefix' => 'wx',
         ], function ($router) {
             require base_path('routes/wxminiapp.php');
+        });
+    }
+
+    /** 
+     * 通用工具
+     * 
+     *
+     */
+    protected function mapCommonRoutes()
+    {
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => $this->namespace . '\Common',
+            'prefix' => 'tools',
+        ], function ($router) {
+            require base_path('routes/common.php');
         });
     }
 }

@@ -388,12 +388,17 @@ class ComposerStaticInit744c2d751e322fbc326a3eeb93744e9f
     );
 
     public static $classMap = array (
+        'CreateAdsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_14_112108_create_ads_table.php',
+        'CreateAuthorsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_14_111927_create_authors_table.php',
         'CreateFailedJobsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_11_172426_create_failed_jobs_table.php',
+        'CreateFavoritesTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_14_112131_create_favorites_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
-        'CreateProgramInfosTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_30_225249_create_programinfos_table.php',
-        'CreateProgramsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_28_015135_create_programs_table.php',
+        'CreateProgramAccessRecordsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_14_112227_create_program_access_records_table.php',
+        'CreateProgramListenRecordsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_14_112204_create_program_listen_records_table.php',
+        'CreateProgramTypesTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_14_111955_create_program_types_table.php',
+        'CreateProgramsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_14_112028_create_programs_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
-        'CreateWxAccountsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_11_133415_create_wx_accounts_table.php',
+        'CreateWxUsersTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_11_133415_create_wx_users_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
@@ -928,6 +933,7 @@ class ComposerStaticInit744c2d751e322fbc326a3eeb93744e9f
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
+        'UpdateProgramsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_14_142036_update_programs_table.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -14,3 +14,4 @@
 //认证路由
 Route::post('/auth/token', 'AuthController@token');
 Route::post('/user/info', 'UserController@info');
+Route::post('/program/timeline', 'ProgramController@timeline');
